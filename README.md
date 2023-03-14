@@ -65,6 +65,8 @@ For acinar pattern, we simulated the process of adding ranked or randon images f
 
 ![supervised-retrieval](./figures/supervised-retrieval.png)
 
+The 4 regions shown, contain acinar pattern. They were picked from the top-10 ranked pool set examples returned by our method for acinar pattern. Solid arrows point at areas confirmed and delineated by the pathologist to contain acinar pattern, thus validating the results.
+
 ### Cite
 
 ```
