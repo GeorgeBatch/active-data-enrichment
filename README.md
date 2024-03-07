@@ -1,7 +1,7 @@
 # Active Data Enrichment by Learning What to Annotate in Digital Pathology
 
 * Final version: [paper](https://link.springer.com/chapter/10.1007/978-3-031-17979-2_12), [supplementary material](https://static-content.springer.com/esm/chp%3A10.1007%2F978-3-031-17979-2_12/MediaObjects/539685_1_En_12_MOESM1_ESM.pdf)
-* Pre-review pdfs (original submission): [paper](./paper-pre-review-version/paper_submission_3_2022-06-29.pdf), [supplementary material](./paper-pre-review-version/supplementary_material_submission_2022-06-29.pdf)
+* Pre-review pdfs (original submission): [paper](./paper-pre-review-version/submitted-paper-with-names-for-ora.pdf), [supplementary material](./paper-pre-review-version/submitted-supplementary-with-names-for-ora.pdf). This version of the contribution has been accepted for publication, after peer review but is not the Version of Record and does not reflect post-acceptance improvements, or any corrections. The Version of Record is available online at: http://dx.doi.org/10.1007/978-3-031-17979-2_12. Use of this Accepted Version is subject to the publisher’s Accepted Manuscript terms of use https://www.springernature.com/gp/open-research/policies/accepted-manuscript-terms
 
 ______
 
