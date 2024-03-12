@@ -67,7 +67,18 @@ For acinar pattern, we simulated the process of adding ranked or randon images f
 
 The 4 regions shown, contain acinar pattern. They were picked from the top-10 ranked pool set examples returned by our method for acinar pattern. Solid arrows point at areas confirmed and delineated by the pathologist to contain acinar pattern, thus validating the results.
 
-### Cite
+
+## Acknowledgements
+
+George Batchkala is supported by Fergus Gleeson and the EPSRC Center for Doctoral Training in Health Data Science (EP/S02428X/1).
+Tapabrata Chakraborti is supported by Linacre College, Oxford. The work was done as part of DART Lung Health Program (UKRI grant 40255).
+
+The computational aspects of this research were supported by the Wellcome
+Trust Core Award Grant Number 203141/Z/16/Z and the NIHR Oxford BRC. The views
+expressed are those of the author(s) and not necessarily those of the NHS, the
+NIHR or the Department of Health.
+
+## Cite
 
 ```
 @InProceedings{10.1007/978-3-031-17979-2_12,
