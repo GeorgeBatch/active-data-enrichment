@@ -9,10 +9,16 @@ ______
 * The work was presented in Singapore on the 22nd of September 2022.
 * This work was done as part of the [DART Lung Health Project](https://dartlunghealth.co.uk/)
 
+## Repository Contents
+
+* [metrics.py](metrics.py): Implementation of the Ranking Curve AUC metric `ranking_auc()` for a given dataset, as well as expected case, and worst case curves
+* [plotting.py](plotting.py): functionality for plotting the ranking curves `plot_ranking_curves()` for the given dataset, as well as expected case, and worst case curves
+* [Example.ipynb](Example.ipynb): Example usage of the `ranking_auc()` and `plot_ranking_curves()` functions together on toy data for both unsupervised and supervised retrieval
+
 ## Contributions Summary
 
 * Proposed a comprehensive annotation protocol for lung cancer pathology
-* Proposed a new ranking metric for comparing image retrieval methods
+* Proposed a new ranking metric for comparing image retrieval methods (code in [metrics.py](metrics.py))
 * Fine-tuned ResNet for predicting pattern presence on regions from pathology images
 
 ## Overarching Project
@@ -51,6 +57,7 @@ Here we provide the formal definition. See [supplementary material](https://stat
 
 ![ranking-curve-definition](./assets/ranking-curve-definition.png)
 
+The metric calculation for a specific dataset can be performed using the `ranking_auc()` function provided in [metrics.py](metrics.py). This function also computes the curve for the expected and the worst case scenarios.
 
 ## Unsipervised Retrieval
 
