@@ -13,7 +13,18 @@ def ranking_auc(
     verbose=False,
 ):
     """
-    Compute the ranking AUC of a ranking list of elements.
+    Compute the ranking AUC of a ranking list of elements and return the values for plotting.
+
+    Parameters:
+    - y_scores: array-like, scores assigned to the elements
+    - y_trues: array-like, true labels of the elements
+    - pos_label: int or str, the label of the positive class
+    - greater_is_better: bool, whether higher scores indicate better ranking (default: True)
+    - top_k: int, top-k elements to consider for statistics (default: None)
+    - verbose: bool, whether to print detailed information (default: False)
+
+    Returns:
+    - result: dict, containing x and y values for the plot, average y value, AUC values, and other statistics
     """
 
     # cosine similarity is a distance, so we want to rank the closest ones higher
@@ -91,7 +102,9 @@ def ranking_auc(
             cumulative_tpr_from_cumulative_possible_matches[top_k - 1],
         )
 
-    # population proportion from 1 to 
+    # --------------------------------------------------------------------------
+    # Expected case: positive matches are uniformly distributed
+    # --------------------------------------------------------------------------
     y_expected_case = np.concatenate((
         [population_proportion for _ in range(total_possible_matches-1)],
         np.linspace(start=population_proportion, stop=1, num=total_negative_matches+1)
@@ -101,6 +114,9 @@ def ranking_auc(
     ) / (n_elements - x[0])
     assert auc_expected_case - (sklearn_metrics.auc(x=x, y=y_expected_case) / (x[-1] - x[0])) < 1e-6, "Expected Case AUC calculation is wrong"
 
+    # --------------------------------------------------------------------------
+    # Worst case: positive matches are at the end
+    # --------------------------------------------------------------------------
     y_worst_case = np.concatenate((
         [0 for _ in range(total_negative_matches-1)],
         np.linspace(start=0, stop=1, num=total_possible_matches+1)
@@ -108,6 +124,8 @@ def ranking_auc(
     auc_worst_case = (total_possible_matches / 2) / (n_elements - 1)
     assert auc_worst_case - (sklearn_metrics.auc(x=x, y=y_worst_case) / (x[-1] - x[0])) < 1e-6, "Worst Case AUC calculation is wrong"
 
+    # --------------------------------------------------------------------------
+    
     result = {
         "x": x,
         # y-s

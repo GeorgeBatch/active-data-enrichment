@@ -23,6 +23,23 @@ def plot_ranking_curves(
     save_name=None,
     save_ext=None,
 ):
+    """
+    Plot ranking curves including the ranked, expected case, and worst case scenarios.
+
+    Parameters:
+    - x: array-like, x-axis values
+    - y: array-like, y-axis values for the ranked curve
+    - y_expected_case: array-like, y-axis values for the expected case curve
+    - y_worst_case: array-like, y-axis values for the worst case curve
+    - auc: float, AUC value for the ranked curve
+    - auc_expected_case: float, AUC value for the expected case curve
+    - auc_worst_case: float, AUC value for the worst case curve
+    - plot_title: str, title of the plot (default: None)
+    - save: bool, whether to save the plot (default: False)
+    - save_dir: str, directory to save the plot (required if save is True)
+    - save_name: str, name of the saved plot (required if save is True)
+    - save_ext: str, extension of the saved plot (required if save is True)
+    """
     if save:
         assert save_dir is not None, "Please provide a directory to save the figure"
         if not os.path.isdir(save_dir):
