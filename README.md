@@ -17,7 +17,7 @@ ______
 
 ## Overarching Project
 
-![dart-flow](./figures/dart-flow.png)
+![dart-flow](./assets/dart-flow.png)
 
 Together with my colleagues at we are collecting a dataset
 (as part of the [DART Lung Health Project](https://dartlunghealth.co.uk/)) that will
@@ -34,7 +34,7 @@ new relevant features on these CT scans.
 
 ## Annotation Protocol
 
-![annotation-protocol](./figures/slide-annotation-both-stages.png)
+![annotation-protocol](./assets/slide-annotation-both-stages.png)
 
 To achieve the goal of the overarching project we developed a comprehensive
 lung cancer pathology annotation protocol that closely mimics the pathologist workflow.
@@ -49,21 +49,21 @@ performance for variable number of examples: Ranking Curve AUC. Our metric is si
 
 Here we provide the formal definition. See [supplementary material](https://static-content.springer.com/esm/chp%3A10.1007%2F978-3-031-17979-2_12/MediaObjects/539685_1_En_12_MOESM1_ESM.pdf) (or the pdf with [pre-review supplementary material](./paper-pre-review-version/supplementary_material_submission_2022-06-29.pdf) if you do not have access to the former option).
 
-![ranking-curve-definition](./figures/ranking-curve-definition.png)
+![ranking-curve-definition](./assets/ranking-curve-definition.png)
 
 
 ## Unsipervised Retrieval
 
 For one of the patterns (keratinization), we only had 1 example in the first batch of annotated images. Hense, we used unsupervised retrieval to rank the pre-selected regions from the second batch. With the feature extractor pre-trained on patches from TCGA lung extracted at 10x, we can retrieve 2/3 (10/15) regions with keratinizations from only 1/3 (40/10) ranked regions.
 
-![unsupervised-retrieval](./figures/unsupervised-retrieval.png)
+![unsupervised-retrieval](./assets/unsupervised-retrieval.png)
 
 
 ## Supervised Retrieval
 
 For acinar pattern, we simulated the process of adding ranked or randon images from the "pool" set into the training set. The conclusion is that adding 10 ranked images results in greater improvements to the model performance on the unseen test set than adding 10, 20, or 30 random images.
 
-![supervised-retrieval](./figures/supervised-retrieval.png)
+![supervised-retrieval](./assets/supervised-retrieval.png)
 
 The 4 regions shown, contain acinar pattern. They were picked from the top-10 ranked pool set examples returned by our method for acinar pattern. Solid arrows point at areas confirmed and delineated by the pathologist to contain acinar pattern, thus validating the results.
 
