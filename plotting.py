@@ -12,10 +12,11 @@ DPI = 300
 def plot_ranking_curves(
     x,
     y,
-    total_possible_matches=None,
-    n_elements=None,
-    population_proportion=None,
+    y_expected_case,
+    y_worst_case,
     auc=None,
+    auc_expected_case=None,
+    auc_worst_case=None,
     plot_title=None,
     save=False,
     save_dir=None,
@@ -30,11 +31,6 @@ def plot_ranking_curves(
         assert save_name is not None, "Please provide a name for the saved figure"
         assert save_ext is not None, "Please provide an extension for the saved figure"
 
-    if auc is not None:
-        ranking_curve_label = f"ranked: Normalized AUC = {auc.round(2)}"
-    else:
-        ranking_curve_label = "ranked"
-
     # to fit into the miccai paper
     plt.rcParams["figure.figsize"] = (5, 2.5)
 
@@ -45,51 +41,29 @@ def plot_ranking_curves(
         y,
         color="darkorange",
         # color="navy", lw=2, linestyle="--",
-        label=ranking_curve_label,
+        label=f"ranked: Normalized AUC = {auc.round(2)}",
     )
 
     # --------------------------------------------------------------------------
     # expected case ranking curve
-    random_auc = 0.5 + (
-        (total_possible_matches - 1) * population_proportion
-    ) / (2 * (n_elements - 1))
-    # horizontal line from (x[0], population_proportion) to (total_possible_matches, population_proportion)
     plt.plot(
-        [x[0], total_possible_matches],
-        [population_proportion, population_proportion],
+        x,
+        y_expected_case,
         lw=2,
         linestyle="--",
         color="navy",
-    )
-    # straight diagonal line from (total_possible_matches, population_proportion) to (x[-1], 1)
-    plt.plot(
-        [total_possible_matches, x[-1]],
-        [population_proportion, 1],
-        lw=2,
-        linestyle="--",
-        color="navy",
-        label=f"random: Normalized AUC = {np.round(random_auc, 2)}",
+        label=f"random: Normalized AUC = {np.round(auc_expected_case, 2)}",
     )
     
     # --------------------------------------------------------------------------
     # worst case ranking curve
-    worst_case_auc = (total_possible_matches / 2) / (n_elements - 1)
-    # horizontal line from (x[0], 0) to (n_elements-total_possible_matches, 0)
     plt.plot(
-        [x[0], n_elements - total_possible_matches],
-        [0, 0],
+        x,
+        y_worst_case,
         lw=2,
         linestyle="--",
         color="black",
-    )
-    # straight diagonal line from (n_elements-total_possible_matches, 0) to (x[-1], 1)
-    plt.plot(
-        [n_elements - total_possible_matches, x[-1]],
-        [0, 1],
-        lw=2,
-        linestyle="--",
-        color="black",
-        label=f"worst: Normalized AUC = {np.round(worst_case_auc, 2)}",
+        label=f"worst: Normalized AUC = {np.round(auc_worst_case, 2)}",
     )
 
     # --------------------------------------------------------------------------

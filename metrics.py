@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from sklearn import metrics
+from sklearn import metrics as sklearn_metrics
 
 
 def ranking_auc(
@@ -31,6 +31,7 @@ def ranking_auc(
 
     n_elements = len(y_trues)
     total_possible_matches = (np.array(y_trues) == pos_label).sum()
+    total_negative_matches = n_elements - total_possible_matches
     cumulative_ranked_matches = np.array([tup[0] for tup in sorted_matches]).cumsum()
     cumulative_tpr_from_total = cumulative_ranked_matches / total_possible_matches
 
@@ -61,7 +62,7 @@ def ranking_auc(
     x = np.arange(1, n_elements + 1)
     y = cumulative_tpr_from_cumulative_possible_matches
     average_y = np.mean(y)
-    auc = metrics.auc(x=x, y=y) / (x[-1] - x[0])
+    auc = sklearn_metrics.auc(x=x, y=y) / (x[-1] - x[0])
 
     # --------------------------------------------------------------------------
     # Top-K stats
@@ -90,11 +91,35 @@ def ranking_auc(
             cumulative_tpr_from_cumulative_possible_matches[top_k - 1],
         )
 
+    # population proportion from 1 to 
+    y_expected_case = np.concatenate((
+        [population_proportion for _ in range(total_possible_matches-1)],
+        np.linspace(start=population_proportion, stop=1, num=total_negative_matches+1)
+    ))
+    auc_expected_case = 0.5 + (
+        (total_possible_matches - x[0]) * population_proportion / 2
+    ) / (n_elements - x[0])
+    assert auc_expected_case - (sklearn_metrics.auc(x=x, y=y_expected_case) / (x[-1] - x[0])) < 1e-6, "Expected Case AUC calculation is wrong"
+
+    y_worst_case = np.concatenate((
+        [0 for _ in range(total_negative_matches-1)],
+        np.linspace(start=0, stop=1, num=total_possible_matches+1)
+    ))
+    auc_worst_case = (total_possible_matches / 2) / (n_elements - 1)
+    assert auc_worst_case - (sklearn_metrics.auc(x=x, y=y_worst_case) / (x[-1] - x[0])) < 1e-6, "Worst Case AUC calculation is wrong"
+
     result = {
         "x": x,
+        # y-s
         "y": y,
         "average_y": average_y,
+        "y_expected_case": y_expected_case,
+        "y_worst_case": y_worst_case,
+        # auc values
         "auc": auc,
+        "auc_expected_case": auc_expected_case,
+        "auc_worst_case": auc_worst_case,
+        # other stats
         "population_proportion": population_proportion,
         "total_possible_matches": total_possible_matches,
         "n_elements": n_elements,
