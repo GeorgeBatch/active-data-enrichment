@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 # constants
 DPI = 300
+FIG_SIZE = (5, 2.5)
 
 
 def plot_ranking_curves(
@@ -18,6 +19,7 @@ def plot_ranking_curves(
     auc_expected_case,
     auc_worst_case,
     plot_title=None,
+    show=False,
     save=False,
     save_dir=None,
     save_name=None,
@@ -35,6 +37,7 @@ def plot_ranking_curves(
     - auc_expected_case: float, AUC value for the expected case curve
     - auc_worst_case: float, AUC value for the worst case curve
     - plot_title: str, title of the plot (default: None)
+    - show: bool, whether to show the plot (default: False)
     - save: bool, whether to save the plot (default: False)
     - save_dir: str, directory to save the plot (required if save is True)
     - save_name: str, name of the saved plot (required if save is True)
@@ -49,7 +52,7 @@ def plot_ranking_curves(
         assert save_ext is not None, "Please provide an extension for the saved figure"
 
     # to fit into the miccai paper
-    plt.rcParams["figure.figsize"] = (5, 2.5)
+    plt.rcParams["figure.figsize"] = FIG_SIZE
 
     # --------------------------------------------------------------------------
     # ranking curve
@@ -71,7 +74,7 @@ def plot_ranking_curves(
         color="navy",
         label=f"random: Normalized AUC = {np.round(auc_expected_case, 2)}",
     )
-    
+
     # --------------------------------------------------------------------------
     # worst case ranking curve
     plt.plot(
@@ -95,6 +98,11 @@ def plot_ranking_curves(
     # plt.legend(loc="lower right")
     # plt.legend(loc="upper left")
 
+    plt.tight_layout()
     if save:
-        plt.savefig(f"{save_dir}/{save_name}.{save_ext}", dpi=DPI, bbox_inches="tight")
-    plt.show()
+        plt.savefig(f"{save_dir}/{save_name}.{save_ext}", dpi=DPI)
+
+    if show:
+        plt.show()
+    else:
+        plt.close()
