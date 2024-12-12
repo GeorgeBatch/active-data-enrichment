@@ -1,5 +1,6 @@
+from typing import List, Dict, Union, Optional
+
 import numpy as np
-import matplotlib.pyplot as plt
 
 from sklearn import metrics as sklearn_metrics
 
@@ -13,13 +14,13 @@ class NoNegativeLabelsError(Exception):
 
 
 def ranking_auc(
-    scores,
-    labels,
-    pos_label,
-    greater_is_better=True,
-    top_k=None,
-    verbose=False,
-):
+    scores: Union[List[float], np.ndarray],
+    labels: Union[List[Union[int, str]], np.ndarray],
+    pos_label: Union[int, str],
+    greater_is_better: bool = True,
+    top_k: Optional[int] = None,
+    verbose: bool = False,
+) -> Dict[str, Union[np.ndarray, float]]:
     """
     Compute the ranking AUC of a ranking list of elements and return the values for plotting.
 
@@ -34,13 +35,16 @@ def ranking_auc(
     Returns:
     - result: dict, containing x and y values for the plot, average y value, AUC values, and other statistics
     """
+    # Ensure inputs are numpy arrays
+    scores = np.array(scores)
+    labels = np.array(labels)
 
     # cosine similarity is a distance, so we want to rank the closest ones higher
     if not greater_is_better:
         scores = [-score for score in scores]
 
     # Convert labels to a binary array
-    positive_labels = np.array(labels) == pos_label
+    positive_labels = (labels == pos_label).astype(int)
 
     # when scores are similarities or probabilities of the positive class, we rank them
     #     from highest to lowest (greater_is_better, descending order) => reverse=True

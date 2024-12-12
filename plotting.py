@@ -1,6 +1,8 @@
 # Standard imports
 import os
 
+from typing import Optional
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -11,20 +13,20 @@ FIG_SIZE = (5, 2.5)
 plt.rcParams["figure.figsize"] = FIG_SIZE
 
 def plot_ranking_curves(
-    x,
-    y,
-    y_expected_case,
-    y_worst_case,
-    auc,
-    auc_expected_case,
-    auc_worst_case,
-    plot_title=None,
-    show=False,
-    save=False,
-    save_dir=None,
-    save_name=None,
-    save_ext=None,
-):
+    x: np.ndarray,
+    y: np.ndarray,
+    y_expected_case: np.ndarray,
+    y_worst_case: np.ndarray,
+    auc: float,
+    auc_expected_case: float,
+    auc_worst_case: float,
+    plot_title: Optional[str] = None,
+    show: bool = False,
+    save: bool = False,
+    save_dir: Optional[str] = None,
+    save_name: Optional[str] = None,
+    save_ext: Optional[str] = None,
+) -> None:
     """
     Plot ranking curves including the ranked, expected case, and worst case scenarios.
 
