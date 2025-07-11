@@ -14,12 +14,12 @@ plt.rcParams["figure.figsize"] = FIG_SIZE
 
 def plot_ranking_curves(
     x: np.ndarray,
-    y: np.ndarray,
-    y_expected_case: np.ndarray,
-    y_worst_case: np.ndarray,
-    auc: float,
-    auc_expected_case: float,
-    auc_worst_case: float,
+    y: Optional[np.ndarray] = None,
+    y_expected_case: Optional[np.ndarray] = None,
+    y_worst_case: Optional[np.ndarray] = None,
+    auc: Optional[float] = None,
+    auc_expected_case: Optional[float] = None,
+    auc_worst_case: Optional[float] = None,
     plot_title: Optional[str] = None,
     show: bool = False,
     save: bool = False,
@@ -32,12 +32,12 @@ def plot_ranking_curves(
 
     Parameters:
     - x: array-like, x-axis values
-    - y: array-like, y-axis values for the ranked curve
-    - y_expected_case: array-like, y-axis values for the expected case curve
-    - y_worst_case: array-like, y-axis values for the worst case curve
-    - auc: float, AUC value for the ranked curve
-    - auc_expected_case: float, AUC value for the expected case curve
-    - auc_worst_case: float, AUC value for the worst case curve
+    - y: array-like, y-axis values for the ranked curve (optional)
+    - y_expected_case: array-like, y-axis values for the expected case curve (optional)
+    - y_worst_case: array-like, y-axis values for the worst case curve (optional)
+    - auc: float, AUC value for the ranked curve (optional)
+    - auc_expected_case: float, AUC value for the expected case curve (optional)
+    - auc_worst_case: float, AUC value for the worst case curve (optional)
     - plot_title: str, title of the plot (default: None)
     - show: bool, whether to show the plot (default: False)
     - save: bool, whether to save the plot (default: False)
@@ -58,35 +58,38 @@ def plot_ranking_curves(
 
     # --------------------------------------------------------------------------
     # ranking curve
-    plt.plot(
-        x,
-        y,
-        color="darkorange",
-        # color="navy", lw=2, linestyle="--",
-        label=f"ranked: Normalized AUC = {auc.round(2)}",
-    )
+    if y is not None and auc is not None:
+        plt.plot(
+            x,
+            y,
+            color="darkorange",
+            # color="navy", lw=2, linestyle="--",
+            label=f"ranked: Normalized AUC = {auc.round(2)}",
+        )
 
     # --------------------------------------------------------------------------
     # expected case ranking curve
-    plt.plot(
-        x,
-        y_expected_case,
-        lw=2,
-        linestyle="--",
-        color="navy",
-        label=f"random: Normalized AUC = {np.round(auc_expected_case, 2)}",
-    )
+    if y_expected_case is not None and auc_expected_case is not None:
+        plt.plot(
+            x,
+            y_expected_case,
+            lw=2,
+            linestyle="--",
+            color="navy",
+            label=f"random: Normalized AUC = {np.round(auc_expected_case, 2)}",
+        )
 
     # --------------------------------------------------------------------------
     # worst case ranking curve
-    plt.plot(
-        x,
-        y_worst_case,
-        lw=2,
-        linestyle="--",
-        color="black",
-        label=f"worst: Normalized AUC = {np.round(auc_worst_case, 2)}",
-    )
+    if y_worst_case is not None and auc_worst_case is not None:
+        plt.plot(
+            x,
+            y_worst_case,
+            lw=2,
+            linestyle="--",
+            color="black",
+            label=f"worst: Normalized AUC = {np.round(auc_worst_case, 2)}",
+        )
 
     # --------------------------------------------------------------------------
     # plot settings
