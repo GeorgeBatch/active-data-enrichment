@@ -9,7 +9,9 @@ import matplotlib.pyplot as plt
 
 # constants
 DPI = 300
-FIG_SIZE = (5, 2.5)
+# FIG_SIZE = (4, 2.5) # side by side
+# FIG_SIZE = (5, 3) # alone on the page
+FIG_SIZE = (5, 2.5) # alone on the page
 plt.rcParams["figure.figsize"] = FIG_SIZE
 
 def plot_ranking_curves(
