@@ -91,8 +91,8 @@ def plot_ranking_curves(
     # --------------------------------------------------------------------------
     # plot settings
     plt.ylim([-0.05, 1.05])
-    plt.xlabel("top-n ranked examples")
-    plt.ylabel("recall")
+    plt.xlabel("top-n ranked samples")
+    plt.ylabel("ranking score")
     if plot_title:
         plt.title(plot_title)
 
