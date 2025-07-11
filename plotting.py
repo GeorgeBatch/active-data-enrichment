@@ -21,6 +21,8 @@ def plot_ranking_curves(
     auc_expected_case: Optional[float] = None,
     auc_worst_case: Optional[float] = None,
     title: Optional[str] = None,
+    xlabel: str = "top-n ranked samples",
+    ylabel: str = "ranking score",
     show: bool = False,
     save: bool = False,
     save_dir: Optional[str] = None,
@@ -39,6 +41,8 @@ def plot_ranking_curves(
     - auc_expected_case: float, AUC value for the expected case curve (optional)
     - auc_worst_case: float, AUC value for the worst case curve (optional)
     - title: str, title of the plot (default: None)
+    - xlabel: str, x-axis label (default: "top-n ranked samples")
+    - ylabel: str, y-axis label (default: "ranking score")
     - show: bool, whether to show the plot (default: False)
     - save: bool, whether to save the plot (default: False)
     - save_dir: str, directory to save the plot (required if save is True)
@@ -94,8 +98,8 @@ def plot_ranking_curves(
     # --------------------------------------------------------------------------
     # plot settings
     plt.ylim([-0.05, 1.05])
-    plt.xlabel("top-n ranked samples")
-    plt.ylabel("ranking score")
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     if title:
         plt.title(title)
 
